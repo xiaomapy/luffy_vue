@@ -1,16 +1,9 @@
 <template>
   <div class="hello">
-    <div
-      v-for='course in courseList'
-      v-bind:course='course'
-      v-bind:key='course.id'
-    >
-      <span>专题课ID:{{course.id}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-      <span>专题课名:{{course.name}}</span>
-    </div>
+   <h1>这是首页</h1>
   </div>
 </template>
-
+ 
 <script>
 export default {
   name: 'HelloWorld',

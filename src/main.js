@@ -13,15 +13,33 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
 	state:{
 		courseList:[
-		'吃饭'
 		]
+
 	},
 	mutations:{
 		// 修改仓库中状态的唯一方法就是通过提交mutation来实现
 		INITNOTE:function(state,courseList){
 			state.courseList = courseList
 		}
-	}
+
+	},
+  actions:{
+    addCourse(context,course){
+      axios({
+        method:'post',
+        url:'http://127.0.0.1:8000/api/v1/shoppingcar/',
+        data:qs.stringify(course)
+      })
+        .then(function(res) {
+          console.log(res)
+          // 发送向成功后，提交mutation
+          // context.commit('ADDNOTE',note) // 提交同步操作mutations中的ADDNOTE方法
+        })
+        .catch(function(error){
+          console.log(error)
+        });
+    }
+  }
 	
 })
 
@@ -45,17 +63,14 @@ new Vue({
   			console.log(error)
   		})
 
+      // axios.get('http://127.0.0.1:8000/api/v1/shoppingcar/')
+      // .then(function(response){
+      //   console.log(response.data.data);
+      //   _this.$store.commit('PRICEINFO',response.data.data)
+      // })
+      // .catch(function(error){
+      //   console.log(error)
+      // })
 
-  	/* 通过原始jquery的ajax来向后端请求数据。
-  	jQuery.ajax({
-  		url:'http://127.0.0.1:8000/api/notes/',
-  		type:'get',
-  		success:function(data){
-  			console.log(data)
-  			// _this.$store.state.noteList = data.data 不规范，修改store数据在mutation中
-  			_this.$store.commit('INITNOTE',data.data)
-  		}
-  	})
-  	*/
   }
 })
